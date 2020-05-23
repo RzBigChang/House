@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.mapper.PowerMapper">
+	<!-- 显示菜单 -->
+	<select id="listPower" resultType="com.cs.entity.Power">
+		Select * from power p INNER JOIN `userandpower` up ON p.id=up.powerId AND up.userId=#{id}
+	</select>
+	<!-- 查询管理员 -->
+	<select id="powerListRole" resultType="com.cs.entity.Role">
+		SELECT * FROM `userandrole` ur WHERE ur.roleId=3 AND ur.userId=#{id}
+	</select>
+	<!-- 查询商家 -->
+	<select id="powerListRoleBusiness" resultType="com.cs.entity.Role">
+		SELECT * FROM `userandrole` ur WHERE ur.roleId=2 AND ur.userId=#{id}
+	</select>
+	<!-- 查询会员 -->
+	<select id="powerListRolemember" resultType="com.cs.entity.Role">
+		SELECT * FROM `userandrole` ur WHERE ur.roleId=1 AND ur.userId=#{id}
+	</select>
+</mapper>

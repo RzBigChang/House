@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.mapper.AdminMapper">
+<resultMap type="com.cs.entity.House" id="HouseMapper">
+		<id property="id" column="id"></id>
+		<result property="houseName" column="houseName"/>
+		<result property="houseVolume" column="houseVolume"/>
+		<result property="houseCourtroom" column="houseCourtroom"/>
+		<result property="houseAddress" column="houseAddress"/>
+		<result property="houseRentOrSell" column="houseRentOrSell"/>
+		<result property="houseRent" column="houseRent"/>
+		<result property="houseFloor" column="houseFloor"/>
+		<result property="houseHeat" column="houseHeat"/>
+		<result property="housePhoto" column="housePhoto"/>
+		<result property="houseType" column="houseType"/>
+		<result property="houseAdvantage" column="houseAdvantage"/>
+		<result property="houseExamine" column="houseExamine"/>
+	<!-- 
+	<collection property="userList" ofType="com.cs.entity.House" >
+		
+	</collection>
+	 -->
+	
+</resultMap>
+	<!-- 查询所有商家 -->
+	<select id="userList" resultType="com.cs.entity.User">
+		SELECT * FROM `user` u INNER JOIN userandrole ur ON u.id=ur.userId WHERE ur.roleId=2 And u.userType=1
+	</select>
+	<!-- 封号 -->
+	<update id="userUpdate">
+		update user set userType=0 where id=#{id}
+	</update>
+	<!-- 查询房源 -->
+	<select id="houseList" resultType="com.cs.entity.House">
+		select * from house
+	</select>
+	<!-- 删除房源信息 -->
+	<delete id="houseDelete">
+		delete from house where id=#{id}
+	</delete>
+	<!-- 删除外键表信息 -->
+	<delete id="userAndHouseDelete">
+		delete from UserAndHouse where houseId=#{houseId}
+	</delete>
+	<!-- 查询未审核的房源 -->
+	<select id="houseList2" resultType="com.cs.entity.House">
+		SELECT * from house h WHERE h.houseExamine=0
+	</select>
+	<!-- 审核房源 -->
+	<update id="houseUpdate">
+		UPDATE house h SET h.houseExamine=#{houseExamine} where id=#{id}
+	</update>
+	<!-- 添加经销商 -->
+	<insert id="adminUserAdd">
+		insert into User (userName,userLoginName,userPassword,userSalt,userType,userNumber)value(#{userName},#{userLoginName},#{userPassword},#{userSalt},#{userType},#{userNumber})
+	</insert>
+</mapper>

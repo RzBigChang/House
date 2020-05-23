@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.mapper.HouseMapper">
+<resultMap type="com.cs.entity.House" id="HouseMapper">
+	<id property="id" column="id"/>
+	<result property="houseName" column="houseName"/>
+	<result property="houseVolume" column="houseVolume"/>
+	<result property="houseCourtroom" column="houseCourtroom"/>
+	<result property="houseAddress" column="houseAddress"/>
+	<result property="houseRentOrSell" column="houseRentOrSell"/>
+	<result property="houseRent" column="houseRent"/>
+	<result property="houseFloor" column="houseFloor"/>
+	<result property="houseHeat" column="houseHeat"/>
+	<result property="housePhoto" column="housePhoto"/>
+	<result property="houseType" column="houseType"/>
+	<result property="houseAdvantage" column="houseAdvantage"/>
+	<result property="houseExamine" column="houseExamine"/>
+	<association property="userHouse" javaType="com.cs.entity.User">
+		<result property="id" column="id"/>
+		<result property="userName" column="userName"/>
+		<result property="userLoginName" column="userLoginName"/>
+		<result property="userPassword" column="userPassword"/>
+		<result property="userSalt" column="userSalt"/>
+		<result property="userType" column="userType"/>
+		<result property="userNumber" column="userNumber"/>
+	</association>
+</resultMap>
+	<!-- 添加房屋信息 -->
+	<insert id="houseAdd" useGeneratedKeys="true" keyProperty="id">
+		insert into House (houseName,houseVolume,houseCourtroom,houseAddress,houseRentOrSell,houseRent,houseFloor,houseHeat,housePhoto,houseType,houseAdvantage,houseExamine)values(#{houseName},#{houseVolume},#{houseCourtroom},#{houseAddress},#{houseRentOrSell},#{houseRent},#{houseFloor},#{houseHeat},#{housePhoto},#{houseType},#{houseAdvantage},#{houseExamine})
+	</insert>
+	<!-- 添加外键表信息 -->
+	<insert id="userAndhouseAdd">
+		insert into userandhouse (userId,houseId)value(#{userId},#{houseId})
+	</insert>
+	<!-- 查询全部房屋信息 -->
+	<select id="houseList" resultMap="HouseMapper">
+		SELECT * FROM house,user
+	</select>
+	<!-- 头部导航新房 -->
+	<select id="houseList2" resultMap="HouseMapper">
+		SELECT * FROM house,user WHERE house.houseType=5
+	</select>
+	<!-- 二手房 -->
+	<select id="houseList3" resultMap="HouseMapper">
+		SELECT * FROM house,user WHERE house.houseType=6
+	</select>
+	<!-- 商铺 -->
+	<select id="houseList4" resultMap="HouseMapper">
+		SELECT * FROM house,user WHERE house.houseType=1
+	</select>
+	<!-- 写字楼 -->
+	<select id="houseList5" resultMap="HouseMapper">
+		SELECT * FROM house,user WHERE house.houseType=2
+	</select>
+	<!-- 厂房 -->
+	<select id="houseList6" resultMap="HouseMapper">
+		SELECT * FROM house,user WHERE house.houseType=3
+	</select>
+	<!-- 仓库 -->
+	<select id="houseList7" resultMap="HouseMapper">
+		SELECT * FROM house,user WHERE house.houseType=4
+	</select>
+</mapper>

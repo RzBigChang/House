@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.mapper.BusinessMapper">
+	<!-- 我的信息 -->
+	<select id="businessList" resultType="com.cs.entity.House">
+		SELECT * FROM `house` h INNER JOIN `userandhouse` uh ON h.id=uh.houseId AND uh.userId=#{id} where h.houseExamine=1
+	</select>
+	<!-- 回显数据 -->
+	<select id="house2" resultType="com.cs.entity.House">
+		select * from house where id=#{id}
+	</select>
+	<!-- 修改 -->
+	<update id="Update">
+		Update house set houseName=#{houseName},houseVolume=#{houseVolume},houseCourtroom=#{houseCourtroom},houseAddress=#{houseAddress},houseRent=#{houseRent},houseFloor=#{houseFloor},houseType=#{houseType},houseExamine=#{houseExamine} where id=#{id}
+	</update>
+	<!-- 查询未审核的房源 -->
+	<select id="businessList2" resultType="com.cs.entity.House">
+		SELECT * FROM `house` h INNER JOIN `userandhouse` uh ON h.id=uh.houseId AND uh.userId=#{id} WHERE h.houseExamine=0
+	</select>
+	<!-- 热度 -->
+	<select id="businessList3" resultType="com.cs.entity.House">
+		SELECT * FROM `house` h INNER JOIN `userandhouse` uh ON h.id=uh.houseId AND  uh.userId=#{id} WHERE h.houseExamine=1 GROUP BY h.houseHeat ORDER BY h.houseHeat DESC 
+	</select>
+</mapper>

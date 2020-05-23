@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.mapper.UserMapper">
+<resultMap type="com.cs.entity.User" id="UserMapper">
+	<id property="id" column="id"></id>
+	<result property="userName" column="userName"/>
+	<result property="userLoginName" column="userLoginName"/>
+	<result property="userPassword" column="userPassword"/>
+	<result property="userSalt" column="userSalt"/>
+	<result property="userType" column="userType"/>
+	<result property="userNumber" column="userNumber"/>
+</resultMap>
+	<!-- 注册 -->
+	<insert id="AddUser" useGeneratedKeys="true" keyProperty="id">
+		insert into User (userName,userLoginName,userPassword,userSalt,userType,userNumber)value(#{userName},#{userLoginName},#{userPassword},#{userSalt},#{userType},#{userNumber})
+	</insert>
+	<!-- 登录 -->
+	<select id="login" resultMap="UserMapper">
+		select * from User where userLoginName=#{userLoginName} And userType=1
+	</select>
+	<!-- 查询用户名 -->
+	<select id="userLoginName" resultType="com.cs.entity.User">
+		select * from User where userLoginName=#{userLoginName}
+	</select>
+	<!-- 添加外键数据 -->
+	<insert id="userandroleAdd">
+		insert into userandrole (userId,roleId) value(#{userId},#{roleId})
+	</insert>
+</mapper>

@@ -1,0 +1,52 @@
+//修改房屋信息
+function Update(id){
+	$.ajax({
+		url:"userUpdate?id="+id,
+		typr:"POST",
+		success:function(json){
+			if(json>0){
+				alert("操作成功");
+				location.href="adminList"
+			}else{
+				alert("操作失败")
+				location.href="adminList"
+			}
+		}
+	})
+}
+//删除房屋信息
+function Delete(id){
+	$.ajax({
+		url:"andinHouseDelete?id="+id,
+		type:"POST",
+		data:{
+			id,id
+		},
+		success:function(json){
+			if(json>0){
+				alert("删除成功");
+				location.href="adminHouseList"
+			}else{
+				alert("删除失败");
+				location.href="adminHouseList"
+			}
+		}
+	})
+}
+//修改审核状态
+function UpdateExamine(id){
+	$.ajax({
+		url:"adminHouseUpdateExamine?id="+id,
+		type:"POST",
+		data:{},
+		success:function(json){
+			if(json>0){
+				alert("审核通过");
+				location.href="adminHouseList2"
+			}else{
+				alert("审核失败");
+				location.href="adminHouseList2"
+			}
+		}
+	})
+}
